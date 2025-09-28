@@ -2,13 +2,11 @@ body {
 	text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 	background-color: #c5d5c5;
-	color: #618685;
 }
 
-
 table {
-	margin: 100px auto;
-	background-color:#77a8a8;
+	margin: auto;
+	/* background-color:#77a8a8; */
 }
 
 .cell {
@@ -16,10 +14,62 @@ table {
 	height: 40px;
 	font-size: 1.5em;
 	color: black;
-	background-color: #618685;
-	border: 1px solid #77a8a8; 
+	background-color: #77a8a8;
+	border: 2px solid #c5d5c5;
+	border-radius: 5%;
+	box-shadow: 2px 2px 2px grey;
+	cursor: pointer;
 }
 
 .hide{
     display: none;
+}
+.board-container{
+	margin: auto;
+}
+
+.lives{
+	margin: auto;
+	margin-top: 100px;
+	margin-bottom: 10px;
+}
+.panel{
+	background-color: #77a8a8;
+	height: 40px;
+	width: 180px;
+	padding: 2px;
+	display: inline-flex;
+}
+
+.display{
+	padding: 2px;
+	background-color: gray;
+	width: 60px;
+	height: 35px;
+	color: beige;
+	font-size: large;
+	text-align: center;
+	line-height: 35px;
+}
+
+button{
+	background-color: #77a8a8;
+	border-color: #c5d5c5;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	font-size: larger;
+	margin: auto;
+}
+
+.levels button {
+	margin: 8px;
+	background-color: gray;
+	color: beige;
+	font-size: small;
+	width: 90px;
+	height: 40px;
+}
+footer{
+	color: #618685;
 }

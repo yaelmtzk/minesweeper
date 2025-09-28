@@ -3,6 +3,8 @@
 //Render the board as a <table> to the page
 function renderBoard(board, selector) {
 
+    const elContainer = document.querySelector(selector)
+
     var strHTML = '<table><tbody>'
     for (var i = 0; i < board.length; i++) {
 
@@ -20,21 +22,21 @@ function renderBoard(board, selector) {
 
             const className = `cell cell-${i}-${j}`
 
-            strHTML += `<td class="${className}" onclick="onCellClicked(this, ${i}, ${j})"><span class = "hide">${cellContent}</span></td>`
+            const revealOrHide = cell.isRevealed? '' : 'class="hide"'
+            var borderColor = revealOrHide === ''? `style="border-color: #77a8a8;"` : ''
+
+            strHTML += `<td class="${className}" 
+            ${borderColor} 
+            onclick="onCellClicked(this, ${i}, ${j})" 
+            oncontextmenu="onCellMarked(this, ${i}, ${j}); 
+            return false"><span ${revealOrHide}>${cellContent}</span></td>`
         }
         strHTML += '</tr>'
     }
     strHTML += '</tbody></table>'
 
-    const elContainer = document.querySelector(selector)
+    
     elContainer.innerHTML = strHTML
-}
-
-// location is an object like this - { i: 2, j: 7 }
-function renderCell(location, value) {
-    // Select the elCell and set the value
-    const elCell = document.querySelector(`.cell-${location.i}-${location.j}`)
-    elCell.innerHTML = value
 }
 
 function getClassName(position) { // { i: 2, j: 7 } ==> .cell-2-7
@@ -60,3 +62,24 @@ function getRandEmptyLocation(board) {
     return emptyCells[randIdx]
 }
 
+function startTimer() {
+    gStartTime = new Date()
+    gTimerInterval = setInterval(updateTimer, 1)
+}
+
+function stopTimer() {
+    clearInterval(gTimerInterval)
+}
+function updateTimer () {
+    const diff = Date.now() - gStartTime
+    const ms = String(diff % 1000)
+    const seconds = String((diff - ms) / 1000)
+
+    const elTimer = document.querySelector('.timer span')
+    elTimer.innerHTML = `${seconds.padStart(3, '0')}`
+}
+
+function changeLevel(levelIdx) {
+    gLevel = gLevels[levelIdx]
+    resetGame()
+}

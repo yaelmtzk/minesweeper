@@ -236,7 +236,6 @@ function onCellClicked(elCell, i, j) {
 
     //checks for victory
     checkGameOver()
-
 }
 
 //Called when a cell is right-clicked  
@@ -338,8 +337,3 @@ function checkGameOver() {
 //BONUS: Do it like the real algorithm (see description at the Bonuses section below)
 function expandReveal(board, elCell, i, j) {}
 
-//When the user clicks a cell with no mines around, reveal not only that cell, but also its neighbors
-//NOTE: start with a basic implementation that only reveals the non-mine 1st degree neighbors 
-//BONUS: Do it like the real algorithm (see description at the Bonuses section below)
-
-function expandReveal(board, elCell, i, j) {}

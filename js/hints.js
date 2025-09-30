@@ -1,6 +1,5 @@
 'use strict'
 
-//const HINT = 'hint'
 var gHints = []
 
 //sets hints obj list (Model) and buttons (DOM)

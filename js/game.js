@@ -1,9 +1,9 @@
 'use strict'
 
-const FLAG = '🚩'
-const NORMAL ='😃'
-const SAD = '🤯'
-const WIN = '😎'
+//const FLAG = 'flag'
+const HAPPY ='happy'
+const LOST = 'lost'
+const WIN = 'win'
 
 var gBoard
 var gBoardCell = {}
@@ -133,7 +133,7 @@ function onCellClicked(elCell, i, j) {
     //if elCell is a mine
     if(currCell.isMine === true){
 
-        elCell.style.backgroundColor = '#C24641'
+        elCell.style.backgroundColor = 'rgb(255, 130, 130)'
 
         gCurrentLives--
         const elLivesSpan = document.querySelector('.lives span')
@@ -141,7 +141,7 @@ function onCellClicked(elCell, i, j) {
 
         if (gCurrentLives === 0){
             const elPanelButton = document.querySelector('.panel button')
-            elPanelButton.innerHTML = SAD
+            elPanelButton.innerHTML = `<img class="lost icon" src="./img/${LOST}.png" alt="${LOST} png">`
             gGame.isOn = false
             stopTimer()
         }
@@ -151,7 +151,7 @@ function onCellClicked(elCell, i, j) {
     currCell.isRevealed = true
     gGame.revealedCount++ 
 
-    elCell.style.borderColor = '#77a8a8'
+    elCell.style.borderColor = 'rgb(86, 143, 135)' 
     elCellSpan.classList.remove('hide')
 
     //displays no mine neighbors
@@ -192,7 +192,7 @@ function onCellMarked(elCell,  i, j) {
         currCell.isMarked = false
 
         if (currCell.isMine === true){
-            elCellSpan.innerHTML = BOMB
+            elCellSpan.innerHTML = `<img class="mine icon" src="./img/mine.png" alt="mine png">`
             gMarkedMines--
         } 
         else if (currCell.minesAroundCount>0) elCellSpan.innerHTML = currCell.minesAroundCount
@@ -215,7 +215,7 @@ function onCellMarked(elCell,  i, j) {
         if (currCell.isRevealed === true) gGame.revealedCount--
         currCell.isRevealed = false
         
-        elCellSpan.innerHTML = FLAG
+        elCellSpan.innerHTML =  `<img class="icon flag" src="img/flag.png" alt="flag png">`
         elCellSpan.classList.remove('hide')
 
         if (currCell.isMine === true) gMarkedMines++
@@ -224,8 +224,8 @@ function onCellMarked(elCell,  i, j) {
         elMinesNumSpan.innerHTML = `${currBoardMinesSum}-${gGame.markedCount}`
     }
 
-    elCell.style.borderColor = '#c5d5c5'
-    elCell.style.backgroundColor = '#77a8a8'
+    elCell.style.borderColor = 'rgb(162, 213, 198)'
+    elCell.style.backgroundColor = 'rgb(86, 143, 135)'
 
     //checks if user won
     checkGameOver()
@@ -268,7 +268,7 @@ function resetGame () {
     elTimer.innerHTML = '000'
 
     const elPanelButton = document.querySelector('.panel button')
-    elPanelButton.innerHTML = NORMAL
+    elPanelButton.innerHTML = `<img class="happy icon" src="./img/${HAPPY}.png" alt="${HAPPY} png">`
 
     const elExterminatorBtn = document.querySelector('.mine-exterminator')
     elExterminatorBtn.innerHTML = 'Mines Exterminator Unused'
@@ -282,7 +282,7 @@ function checkGameOver() {
         && gGame.revealedCount === gLevel.size*gLevel.size - currBoardMinesSum){
             
             const elPanelButton = document.querySelector('.panel button')
-            elPanelButton.innerHTML = WIN
+            elPanelButton.innerHTML = `<img class="win icon" src="./img/${WIN}.png" alt="${WIN} png">`
             
             gGame.isOn = false
             
@@ -335,14 +335,14 @@ function showSafeClick() {
                 
         const elSafeCell =  document.querySelector(`${getClassName(safeCellIdx)}`)
         //change its background color
-        elSafeCell.style.backgroundColor = '#f18973'
+        elSafeCell.style.backgroundColor = 'rgb(245, 186, 187)'
         //updates safe clicks num - DOM
         gSafeClick--
         //updates button - Model
         const elSafeClickBtnSpan = document.querySelector('.safe-click span')
         elSafeClickBtnSpan.innerHTML = gSafeClick
         //changes background color back after 1.5 sec
-        setTimeout(() => elSafeCell.style.backgroundColor = '#77a8a8', 1500)
+        setTimeout(() => elSafeCell.style.backgroundColor = 'rgb(86, 143, 135)', 1500)
 
     }
 }
@@ -387,7 +387,7 @@ function expandReveal(mat, rowIdx, colIdx){
             neighborCellSpan.classList.remove('hide')
 
             const elNeighborCell =  document.querySelector(`${getClassName({i:i, j:j})}`)
-            elNeighborCell.style.borderColor = '#77a8a8'
+            elNeighborCell.style.borderColor = 'rgb(86, 143, 135)'
 
             //reveal non mine neighbors of neighbor cells
             for (var a = 0; a < neighbors.length; a++) {

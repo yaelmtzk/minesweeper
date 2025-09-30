@@ -55,8 +55,12 @@ var gTimerInterval
 
 var gSafeClick = 3
 
-//sets best score local variable for the standard level (begginer)
-localStorage.setItem(`${gLevel.level}BestScore`, `${gBestScore}`)
+//sets best score local variable for all levels
+for (let i = 0; i < gLevels.length; i++) {
+    var levelName = gLevels[i].level
+    localStorage.setItem(`${levelName}BestScore`, `${gBestScore}`)
+}
+
 
 //Called when page loads 
 function onInit() {
@@ -73,6 +77,9 @@ function onInit() {
 
     //displays the best score at that level on DOM
     const elBestScoreSpan = document.querySelector('.best-score span')
+
+    console.log(localStorage.getItem(`${gLevel.level}BestScore`));
+    
     elBestScoreSpan.innerText = localStorage.getItem(`${gLevel.level}BestScore`)
 
     //displays level btns
@@ -268,7 +275,7 @@ function resetGame () {
     elTimer.innerHTML = '000'
 
     const elPanelButton = document.querySelector('.panel button')
-    elPanelButton.innerHTML = `<img class="happy icon" src="./img/${HAPPY}.png" alt="${HAPPY} png">`
+    elPanelButton.innerHTML = `<img class="happy icon" src="./img/happy.png" alt="happy png">`
 
     const elExterminatorBtn = document.querySelector('.mine-exterminator')
     elExterminatorBtn.innerHTML = 'Mines Exterminator Unused'

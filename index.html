@@ -9,18 +9,33 @@
 	</head>
 
 	<body onload="onInit()">
+
+		<button class="dark-light-mode-btn" onclick="toggleScreenColorMode()"><span>Dark</span> Mode</button>
 		
 		<div class="lives">Lives Left: <span>-</span></div>
+
+		<div class="hints"></div>
 		
 		<div class="panel">
-				<div class = "display mines-num"><span>000</span></div>
-				<button  onclick="resetGame()">😃</button>
-				<div class="display timer"><span>000</span></div>
+				<div class = "display mines-num">💣<span>000</span>🚩</div>
+				<button class="reset-btn"  onclick="resetGame()">😃</button>
+				<div class="display timer">🕓<span>000</span></div>
 		</div>
 
 		<div class="board-container"></div>
 
 		<div class="levels"></div>
+
+		<div class="bottom-btn-panel">
+			<button class="safe-click" onclick="showSafeClick()"><b>Safe Click</b><br>
+				<span>3</span>
+				clicks available
+			</button>
+			<button class="mine-exterminator" onclick="mineExterminatorOn(this)">Mines Exterminator Unused</button>
+		</div>
+
+
+		<div class="best-score">Best Level Score: 🕓<span></span></div>
 
 		<footer>
         	<p>&copy; 2025 Yael Matzek. All rights reserved.</p>
@@ -28,6 +43,8 @@
 
 		<script src="js/utils.js"></script>
 		<script src="js/game.js"></script>
+		<script src="js/mines.js"></script>
+		<script src="js/hints.js"></script>
 
 	</body>
 </html>

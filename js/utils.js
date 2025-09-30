@@ -41,7 +41,6 @@ function renderBoard(board, selector) {
     }
     strHTML += '</tbody></table>'
 
-    
     elContainer.innerHTML = strHTML
 }
 

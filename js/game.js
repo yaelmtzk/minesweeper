@@ -141,7 +141,7 @@ function onCellClicked(elCell, i, j) {
 
         if (gCurrentLives === 0){
             const elPanelButton = document.querySelector('.panel button')
-            elPanelButton.innerHTML = `<img class="lost icon" src="./img/${LOST}.png" alt="${LOST} png">`
+            elPanelButton.innerHTML = `<img class="lost icon" src="./img/lost.png" alt="lost png">`
             gGame.isOn = false
             stopTimer()
         }

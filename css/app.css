@@ -1,112 +1,40 @@
 body {
+    background-color: black;
 	text-align: center;
+	color: lightgray;
     font-family: Arial, Helvetica, sans-serif;
-	background-color: #c5d5c5;
-}
-
-.dark-mode {
-  background-color: #454545;
-  color: beige;
-  opacity: 0.5;
 }
 
 table {
-	margin: auto;
-	/* background-color:#77a8a8; */
+	margin: 100px auto;
+	border: 1px solid lightgray;
 }
 
 .cell {
 	width: 40px;
 	height: 40px;
 	font-size: 1.5em;
-	color: black;
-	background-color: #77a8a8;
-	border: 2px solid #c5d5c5;
-	border-radius: 5%;
-	box-shadow: 2px 2px 2px grey;
-	cursor: pointer;
 }
 
 .hide{
     display: none;
 }
 
-.board-container{
+.play-again-btn{
+  border-style: none;
+  background-color: yellow;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.victory{
+	background-color: yellow;
+  	padding: 10px;
 	margin: auto;
+	background-color: black;
 }
 
-.lives{
-	margin: auto;
-	margin-top: 100px;
-	margin-bottom: 10px;
-}
-.panel{
-	background-color: #77a8a8;
-	height: 40px;
-	width: 180px;
-	padding: 2px;
-	display: inline-flex;
-}
-
-.display{
-	margin: 2px;
-	background-color: gray;
-	width: 50px;
-	height: 35px;
-	color: beige;
-	font-size: small;
-	text-align: center;
-	line-height: 35px;
-}
-
-.mines-num{
-	text-align: left;
-	width: 70px;
-}
-
-button{
-	background-color: #77a8a8;
-	border-color: #c5d5c5;
-	width: 40px;
-	height: 40px;
-	cursor: pointer;
-	font-size: larger;
-	border-radius: 10%;
-}
-
-.dark-light-mode-btn{
-	font-size: smaller;
-	width: 85px;
+.characters-img{
+	width: 20px;
 	height: 20px;
-}
-
-.hint-btn{
-	margin: 2px;
-	margin-bottom: 8px;
-	background-color: beige;
-}
-
-.levels button {
-	margin: 10px;
-	background-color: gray;
-	color: beige;
-	font-size: small;
-	width: 90px;
-	height: 40px;
-}
-
-.bottom-btn-panel{
-	margin-bottom: 10px;
-}
-
-.safe-click,
-.mine-exterminator {
-	width: 90px;
-	height: 60px;
-	font-size: small;
-}
-
-footer{
-	margin-top: 500px;
-	color: #618685;
 }

@@ -9,20 +9,31 @@
 	</head>
 
 	<body onload="onInit()">
-
-		<button class="dark-light-mode-btn" onclick="toggleScreenColorMode()"><span>Dark</span> Mode</button>
+		<div><button class="dark-light-mode-btn" onclick="toggleScreenColorMode()"><span>Dark</span> Mode</button></div>
 		
+		
+		<img class="logo" src="./img/MineSweeper.svg" alt="minesweeper-logo">
+
 		<div class="lives">Lives Left: <span>-</span></div>
 
 		<div class="hints"></div>
-		
-		<div class="panel">
-				<div class = "display mines-num">💣<span>000</span>🚩</div>
-				<button class="reset-btn"  onclick="resetGame()">😃</button>
-				<div class="display timer">🕓<span>000</span></div>
-		</div>
 
-		<div class="board-container"></div>
+		<div class="game-container">
+			<div class="panel">
+					<div class = "display mines-num">💣
+						<span></span>
+						<img class="icon flag" src="./img/flag.png" alt="flag png">
+					</div>
+					<button class="reset-btn"  onclick="resetGame()">
+						<img class="icon happy" src="./img/happy.png" alt="happy png">
+					</button>
+					<div class="display timer">🕓<span>0000</span></div>
+			</div>
+
+			<div class="board-container"></div>
+		</div>
+		
+
 
 		<div class="levels"></div>
 

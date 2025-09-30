@@ -1,6 +1,6 @@
 'use strict'
 
-const HINT = '💡'
+//const HINT = 'hint'
 var gHints = []
 
 //sets hints obj list (Model) and buttons (DOM)
@@ -16,7 +16,9 @@ function setHints() {
     var strHtml = ''
 
     for (var i = 0; i < gHints.length; i++) {
-        strHtml += `<button class = "hint-btn" onclick="giveHint(this, ${i})">${HINT}</button>`
+        strHtml += `<button class = "hint-btn" onclick="giveHint(this, ${i})">
+        <img class="hint icon" src="./img/hint.png" alt="hint png">
+        </button>`
     }
     elHintsDiv.innerHTML = strHtml
 }
@@ -26,7 +28,7 @@ function giveHint(elBtn, i) {
     if (gHints[i].used === true) return
     if (gGame.isOn === false) return
 
-    elBtn.style.backgroundColor = '#f18973'
+    elBtn.style.backgroundColor = 'rgb(245, 186, 187)'
     gHints[i].used = true
 
     gGame.isHint = true
@@ -46,7 +48,7 @@ function showHint(location) {
             if (j < 0 || j >= gBoard[i].length) continue
             
             const elCell =  document.querySelector(`${getClassName({i:i, j:j})}`)
-            elCell.style.backgroundColor = 'beige'
+            elCell.style.backgroundColor = 'rgb(255, 245, 242)'
 
             const neighborCellSpan = document.querySelector(`${getClassName({i:i, j:j})} span`)
             
@@ -66,7 +68,7 @@ function hideHint(location) {
             if (j < 0 || j >= gBoard[i].length) continue
             
             const elCell =  document.querySelector(`${getClassName({i:i, j:j})}`)
-            elCell.style.backgroundColor = '#77a8a8'
+            elCell.style.backgroundColor = 'rgb(86, 143, 135)'
 
             const neighborCellSpan = document.querySelector(`${getClassName({i:i, j:j})} span`)
 

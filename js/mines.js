@@ -1,7 +1,5 @@
 'use strict'
 
-
-const MINE = 'mine'
 var currBoardMinesSum = gLevel.mines
 
 function setMines(pos, board){

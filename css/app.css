@@ -4,6 +4,12 @@ body {
 	background-color: #c5d5c5;
 }
 
+.dark-mode {
+  background-color: #454545;
+  color: beige;
+  opacity: 0.5;
+}
+
 table {
 	margin: auto;
 	/* background-color:#77a8a8; */
@@ -24,6 +30,7 @@ table {
 .hide{
     display: none;
 }
+
 .board-container{
 	margin: auto;
 }
@@ -42,14 +49,19 @@ table {
 }
 
 .display{
-	padding: 2px;
+	margin: 2px;
 	background-color: gray;
-	width: 60px;
+	width: 50px;
 	height: 35px;
 	color: beige;
-	font-size: large;
+	font-size: small;
 	text-align: center;
 	line-height: 35px;
+}
+
+.mines-num{
+	text-align: left;
+	width: 70px;
 }
 
 button{
@@ -59,17 +71,42 @@ button{
 	height: 40px;
 	cursor: pointer;
 	font-size: larger;
-	margin: auto;
+	border-radius: 10%;
+}
+
+.dark-light-mode-btn{
+	font-size: smaller;
+	width: 85px;
+	height: 20px;
+}
+
+.hint-btn{
+	margin: 2px;
+	margin-bottom: 8px;
+	background-color: beige;
 }
 
 .levels button {
-	margin: 8px;
+	margin: 10px;
 	background-color: gray;
 	color: beige;
 	font-size: small;
 	width: 90px;
 	height: 40px;
 }
+
+.bottom-btn-panel{
+	margin-bottom: 10px;
+}
+
+.safe-click,
+.mine-exterminator {
+	width: 90px;
+	height: 60px;
+	font-size: small;
+}
+
 footer{
+	margin-top: 500px;
 	color: #618685;
 }

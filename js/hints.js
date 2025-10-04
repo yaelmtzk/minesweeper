@@ -100,6 +100,12 @@ function showMegaHint() {
 
     const firstCellPos = gGame.megaHint.cellsPos[0]
     const secCellPos = gGame.megaHint.cellsPos[1]
+
+    //changes back background color of first cell in case the selected area is not square/rectangular shape
+    if (firstCellPos.i>secCellPos.i){
+            const elFirstCell =  document.querySelector(`${getClassName({i:firstCellPos.i, j:firstCellPos.j})}`)
+            elFirstCell.style.backgroundColor = 'rgb(86, 143, 135)'
+    }
     
     for (var i = firstCellPos.i; i <= secCellPos.i; i++){
         for (var j = firstCellPos.j; j <= secCellPos.j; j++) {

@@ -59,19 +59,18 @@ function mineExterminatorOn(elBtn) {
 
     elBtn.innerHTML = 'Mines Exterminator <b>Used</b>'
     gGame.exterminator.isOn = true
+
+    exterminateMines()
 }
 
-function exterminateMines(rowIdx, colIdx) {
+function exterminateMines() {
 
     var randMinesIdx = []
     //adds collects all mines indexes to randMinesIdx array
     for (var i = 0; i < gBoard.length; i++) {
         for (let j = 0; j < gBoard[i].length; j++) {
-            //skips the index of the clicked cell
-            //if the cell is a mine diesn't add to randMinesIdx 
-            if (i === rowIdx && j === colIdx) continue
-
-            if(gBoard[i][j].isMine === true) randMinesIdx.push({i, j})
+            if(gBoard[i][j].isMine === true && gBoard[i][j].isRevealed === false) 
+                randMinesIdx.push({i, j})
         }
     }
 

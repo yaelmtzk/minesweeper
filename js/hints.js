@@ -77,3 +77,55 @@ function hideHint(location) {
         }
     }
 }
+
+//activates the mega hint btn
+function megaHint(elBtn) {
+
+    if (gGame.isOn === false) return
+
+    if (gGame.megaHint.cellsPos.length >2) return
+
+    gGame.megaHint.isOn = true
+
+    console.log('Mega Hint')
+
+    elBtn.innerHTML = '1 Mega Hint Available: <b>Used</b>'
+}
+
+
+function showMegaHint() {
+
+    if (gGame.isOn === false) return
+    if (gGame.megaHint.chosenCellsNum > 2) return
+
+    const firstCellPos = gGame.megaHint.cellsPos[0]
+    const secCellPos = gGame.megaHint.cellsPos[1]
+    
+    for (var i = firstCellPos.i; i <= secCellPos.i; i++){
+        for (var j = firstCellPos.j; j <= secCellPos.j; j++) {
+
+            const elCell =  document.querySelector(`${getClassName({i:i, j:j})}`)
+            elCell.style.backgroundColor = 'rgb(255, 245, 242)'
+
+            const elCellSpan = document.querySelector(`${getClassName({i:i, j:j})} span`)
+            elCellSpan.classList.remove('hide')
+        }
+    }
+}
+
+function hideMegaHint() {
+
+    const firstCellPos = gGame.megaHint.cellsPos[0]
+    const secCellPos = gGame.megaHint.cellsPos[1]
+
+    for (var i = firstCellPos.i; i <= secCellPos.i; i++){
+        for (var j = firstCellPos.j; j <= secCellPos.j; j++) {
+
+            const elCell =  document.querySelector(`${getClassName({i:i, j:j})}`)
+            elCell.style.backgroundColor = 'rgb(86, 143, 135)'
+
+            const elCellSpan = document.querySelector(`${getClassName({i:i, j:j})} span`)
+            elCellSpan.classList.add('hide')
+        }
+    }
+}

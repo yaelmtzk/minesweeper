@@ -147,13 +147,14 @@ function onCellClicked(elCell, i, j) {
         }
         else if (gGame.megaHint.cellsPos.length===1) {
             gGame.megaHint.cellsPos.push({i:i, j:j})
-            elCell.style.backgroundColor = 'rgb(245, 186, 187)'
 
             showMegaHint()
             setTimeout(() => hideMegaHint(), 2000)
             gGame.megaHint.isOn = false
 
         }
+
+
         return
     }
 

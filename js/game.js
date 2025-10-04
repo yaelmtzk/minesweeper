@@ -44,6 +44,10 @@ var gGame = {
     exterminator: {
         amount:1,
         isOn: false
+    },
+    megaHint: {
+        isOn: false,
+        cellsPos: []
     }
 } 
 var gCurrentLives = gLevel.lives
@@ -77,8 +81,6 @@ function onInit() {
 
     //displays the best score at that level on DOM
     const elBestScoreSpan = document.querySelector('.best-score span')
-
-    console.log(localStorage.getItem(`${gLevel.level}BestScore`));
     
     elBestScoreSpan.innerText = localStorage.getItem(`${gLevel.level}BestScore`)
 
@@ -127,7 +129,7 @@ function onCellClicked(elCell, i, j) {
 
     // checks if it is the first click
     // fill the board and turn game on
-    if (gGame.isOn === false){
+    if (gGame.isOn === false) {
         currCell.isRevealed = true
 
         gGame.isOn = true
@@ -137,8 +139,26 @@ function onCellClicked(elCell, i, j) {
         startTimer()
     }
 
+    //if mega hint btn was pressed
+    if (gGame.megaHint.isOn === true) {
+        if(gGame.megaHint.cellsPos.length === 0){
+            gGame.megaHint.cellsPos.push({i:i, j:j})
+            elCell.style.backgroundColor = 'rgb(245, 186, 187)'
+        }
+        else if (gGame.megaHint.cellsPos.length===1) {
+            gGame.megaHint.cellsPos.push({i:i, j:j})
+            elCell.style.backgroundColor = 'rgb(245, 186, 187)'
+
+            showMegaHint()
+            setTimeout(() => hideMegaHint(), 2000)
+            gGame.megaHint.isOn = false
+
+        }
+        return
+    }
+
     //if elCell is a mine
-    if(currCell.isMine === true){
+    if (currCell.isMine === true) {
 
         elCell.style.backgroundColor = 'rgb(255, 130, 130)'
 
@@ -146,33 +166,32 @@ function onCellClicked(elCell, i, j) {
         const elLivesSpan = document.querySelector('.lives span')
         elLivesSpan.innerText = gCurrentLives
 
-        if (gCurrentLives === 0){
+        if (gCurrentLives === 0) {
             const elPanelButton = document.querySelector('.panel button')
             elPanelButton.innerHTML = `<img class="lost icon" src="./img/lost.png" alt="lost png">`
             gGame.isOn = false
             stopTimer()
         }
-        
     }
 
     currCell.isRevealed = true
-    gGame.revealedCount++ 
+    gGame.revealedCount++
 
-    elCell.style.borderColor = 'rgb(86, 143, 135)' 
+    elCell.style.borderColor = 'rgb(86, 143, 135)'
     elCellSpan.classList.remove('hide')
 
     //displays no mine neighbors
     expandReveal(gBoard, i, j)
 
     //if the hint btn was pressed
-    if (gGame.isHint === true){
+    if (gGame.isHint === true) {
         showHint(pos)
         setTimeout(() => hideHint(pos), 1500)
         gGame.isHint = false
     }
 
     //if the mine exterminator btn was pressed
-    if (gGame.exterminator.isOn === true){
+    if (gGame.exterminator.isOn === true) {
         exterminateMines(i, j)
         gGame.exterminator.isOn = false
     }
@@ -249,17 +268,22 @@ function setLevelBtns() {
 }
 
 function resetGame () {
-    gGame = { 
-        isOn: false, 
-        revealedCount: 0, 
-        markedCount: 0, 
-        secsPassed: 0,
-        isHint: false,
-        exterminator: {
-            amount:1,
-            isOn: false
-        }
-    } 
+gGame = { 
+    isOn: false, 
+    revealedCount: 0, 
+    markedCount: 0, 
+    secsPassed: 0,
+    isHint: false,
+    exterminator: {
+        amount:1,
+        isOn: false
+    },
+    megaHint: {
+        isOn: false,
+        chosenCellsNum: 0,
+        cellsPos: []
+    }
+} 
     gCurrentLives = gLevel.lives
     gMarkedMines = 0
     gHints = []
@@ -279,6 +303,9 @@ function resetGame () {
 
     const elExterminatorBtn = document.querySelector('.mine-exterminator')
     elExterminatorBtn.innerHTML = 'Mines Exterminator Unused'
+
+    const elMegaHintBtn = document.querySelector('.mega-hint')
+    elMegaHintBtn.innerHTML = '1 Mega Hint Available: Unused'
 
     onInit()
 }

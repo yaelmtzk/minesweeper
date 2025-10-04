@@ -190,12 +190,6 @@ function onCellClicked(elCell, i, j) {
         gGame.isHint = false
     }
 
-    //if the mine exterminator btn was pressed
-    if (gGame.exterminator.isOn === true) {
-        exterminateMines(i, j)
-        gGame.exterminator.isOn = false
-    }
-
     //checks for victory
     checkGameOver()
 }

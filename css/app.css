@@ -125,7 +125,8 @@ button{
 }
 
 .safe-click,
-.mine-exterminator {
+.mine-exterminator,
+.mega-hint {
 	width: 90px;
 	height: 60px;
 	padding-right: 2px;

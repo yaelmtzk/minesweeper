@@ -1,0 +1,14 @@
+ :root {
+    /* General */
+	--main-bg: rgb(245, 186, 187); 
+	--main-text: rgb(6, 66, 50);
+	--dark-bg: #454545; 
+	--dark-bg-text: beige;
+	/* Game */
+	--game-bg: rgb(162, 213, 198); 
+	--cell-bg: rgb(86, 143, 135); 
+	--cell-text: black;
+	--panel-text: rgb(255, 245, 242);
+	--hint-bg: rgb(255, 245, 242);
+	--shadow: gray;
+}

@@ -1,65 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>Minesweeper</title>
-		<link rel="stylesheet" href="css/app.css" />
-	</head>
 
-	<body onload="onInit()">
-		<div><button class="dark-light-mode-btn" onclick="toggleScreenColorMode()"><span>Dark</span> Mode</button></div>
-		
-		
-		<img class="logo" src="./img/MineSweeper.svg" alt="minesweeper-logo">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Minesweeper</title>
+	<link rel="stylesheet" href="assets/styles/main.css" />
+</head>
 
-		<div class="lives">Lives Left: <span>-</span></div>
+<body onload="onInit()">
+	<div>
+		<button class="dark-light-mode-btn" onclick="toggleScreenColorMode()">
+			<span>Dark</span>
+			Mode
+		</button>
+	</div>
 
-		<div class="hints"></div>
+	<img class="logo" src="./assets/img/MineSweeper.svg" alt="minesweeper-logo">
 
-		<div class="game-container">
-			<div class="panel">
-					<div class = "display mines-num">💣
-						<span></span>
-						<img class="icon flag" src="./img/flag.png" alt="flag png">
-					</div>
-					<button class="reset-btn"  onclick="resetGame()">
-						<img class="icon happy" src="./img/happy.png" alt="happy png">
-					</button>
-					<div class="display timer">🕓<span>0000</span></div>
+	<div class="lives">Lives Left: <span>-</span></div>
+
+	<div class="hints"></div>
+
+	<div class="game-container">
+		<div class="panel">
+			<div class="display mines-num">💣
+				<span></span>
+				<img class="icon flag" src="./assets/img/flag.png" alt="flag png">
 			</div>
 
-			<div class="board-container"></div>
-		</div>
-		
-
-		<div class="bottom-btn-panel">
-
-			<div class="levels"></div>
-
-			<button class="safe-click" onclick="showSafeClick()"><b>Safe Click</b><br>
-				<span>3</span>
-				clicks available
+			<button class="reset-btn" onclick="resetGame()">
+				<img class="icon happy" src="./assets/img/happy.png" alt="happy png">
 			</button>
 
-			<button class="mine-exterminator" onclick="mineExterminatorOn(this)">Mines Exterminator: Unused</button>
-			
-			<button class="mega-hint" onclick="megaHint(this)">1 Mega Hint Available: Unused</button>
-		
+			<div class="display timer">🕓<span>0000</span></div>
 		</div>
 
+		<div class="board-container"></div>
+	</div>
 
-		<div class="best-score">Best Level Score: 🕓<span>99999</span></div>
 
-		<footer>
-        	<p>&copy; 2025 Yael Matzek. All rights reserved.</p>
-    	</footer>
+	<div class="bottom-btn-panel">
 
-		<script src="js/utils.js"></script>
-		<script src="js/game.js"></script>
-		<script src="js/mines.js"></script>
-		<script src="js/hints.js"></script>
+		<div class="levels"></div>
 
-	</body>
+		<button class="safe-click" onclick="showSafeClick()">
+			<b>Safe Click</b>
+			<br>
+			<span>3</span>
+			clicks available
+		</button>
+
+		<button class="mine-exterminator" onclick="mineExterminatorOn(this)">
+			Mines Exterminator: Unused
+		</button>
+
+		<button class="mega-hint" onclick="megaHint(this)">
+			1 Mega Hint Available: Unused
+		</button>
+
+	</div>
+
+
+	<div class="best-score">Best Level Score: 🕓<span>99999</span></div>
+
+	<footer>
+		<p>&copy; 2025 Yael Matzek. All rights reserved.</p>
+	</footer>
+
+	<script src="js/utils.js"></script>
+	<script src="js/game.js"></script>
+	<script src="js/mines.js"></script>
+	<script src="js/hints.js"></script>
+
+</body>
+
 </html>

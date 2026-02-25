@@ -9,23 +9,30 @@ function setHints() {
             used: false
         })
     }
-
     const elHintsDiv = document.querySelector('.hints')
     var strHtml = ''
 
     for (var i = 0; i < gHints.length; i++) {
-        strHtml += `<button class = "hint-btn" onclick="giveHint(this, ${i})">
-        <img class="hint icon" src="./assets/img/hint.png" alt="hint png">
-        </button>`
+        strHtml += `<button
+                        class = "hint-btn"
+                        title="Hint"
+                        onclick="giveHint(this, ${i})">
+                        <i class="fa-solid fa-lightbulb" style="color: rgb(116, 192, 252);"></i>
+                    </button>`
     }
     elHintsDiv.innerHTML = strHtml
 }
 
 function giveHint(elBtn, i) {
-    if (gHints[i].used === true) return
-    if (gGame.isOn === false) return
+    const elIcon = elBtn.querySelector('i')
 
-    elBtn.style.backgroundColor = 'rgb(245, 186, 187)'
+    if (gHints[i].used === true) {
+        return
+    }
+    if (gGame.isOn === false) {
+        return
+    }
+    elIcon.style.color = 'rgb(255, 212, 59)'
     gHints[i].used = true
     gGame.isHint = true
 }
@@ -40,7 +47,7 @@ function showHint(location) {
             if (j < 0 || j >= gBoard[i].length) continue
 
             const elCell = document.querySelector(`${getClassName({ i: i, j: j })}`)
-            elCell.style.backgroundColor = 'rgb(255, 245, 242)'
+            elCell.style.backgroundColor = 'rgb(116, 192, 252)'
 
             const neighborCellSpan = document.querySelector(`${getClassName({ i: i, j: j })} span`)
             neighborCellSpan.classList.remove('hide')
@@ -55,17 +62,23 @@ function hideHint(location) {
 
         for (var j = location.j - 1; j <= location.j + 1; j++) {
             if (i === location.i && j === location.j) continue
+
             if (j < 0 || j >= gBoard[i].length) continue
 
             const elCell = document.querySelector(`${getClassName({ i: i, j: j })}`)
-            elCell.style.backgroundColor = 'rgb(86, 143, 135)'
+            
 
             const neighborCellSpan = document.querySelector(`${getClassName({ i: i, j: j })} span`)
 
-            if (gBoard[i][j].isRevealed !== true && gBoard[i][j].isMarked !== true) {
+            if (!gBoard[i][j].isRevealed && !gBoard[i][j].isMarked) {
                 neighborCellSpan.classList.add('hide')
-            }
+                elCell.style.backgroundColor = 'var(--cell-bg)'
+            } else elCell.style.backgroundColor = 'var(--open-cell-bg)'
+
+            
         }
+        const elIcon = document.querySelector('.hint-btn i')
+        elIcon.style.color = 'rgb(116, 192, 252)'
     }
 }
 
@@ -74,7 +87,6 @@ function megaHint(elBtn) {
     if (gGame.megaHint.cellsPos.length > 2) return
 
     gGame.megaHint.isOn = true
-    elBtn.innerHTML = '1 Mega Hint Available: <b>Used</b>'
 }
 
 function showMegaHint() {

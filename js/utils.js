@@ -10,7 +10,7 @@ function renderBoard(board, selector) {
             const cell = board[i][j]
             var cellContent
 
-            if (cell.isMine === true) cellContent = `<img class="mine icon" src="./assets/img/mine.png" alt="mine png">`
+            if (cell.isMine === true) cellContent = `<i class="fa-solid fa-burst" style="color: rgb(237, 73, 86);></i>"`
             else {
                 if (cell.minesAroundCount !== 0) cellContent = cell.minesAroundCount
                 else cellContent = ''
@@ -18,19 +18,17 @@ function renderBoard(board, selector) {
 
             const className = `cell cell-${i}-${j}`
             const revealOrHide = cell.isRevealed ? '' : 'class="hide"'
-            var borderColor = revealOrHide === '' ? `style = "border-color: rgb(86, 143, 135);"` : ''
             var spanColor
 
-            if (cell.minesAroundCount === 1) spanColor = 'style="color: rgb(187, 220, 229);"'
-            else if (cell.minesAroundCount === 2) spanColor = 'style="color: rgb(8, 203, 0);"'
-            else if (cell.minesAroundCount >= 3) spanColor = 'style="color: rgb(228, 0, 75);"'
+            if (cell.minesAroundCount === 1) spanColor = 'style="color: rgb(116, 192, 252);"'
+            else if (cell.minesAroundCount === 2) spanColor = 'style="color: #3d7563ff;"'
+            else if (cell.minesAroundCount >= 3) spanColor = 'style="color: rgb(237, 73, 86);"'
             else spanColor = ''
 
-            strHTML += `<td class="${className}" 
-            ${borderColor} 
-            onclick="onCellClicked(this, ${i}, ${j})" 
-            oncontextmenu="onCellMarked(this, ${i}, ${j}); 
-            return false"><span ${revealOrHide} ${spanColor}>${cellContent}</span></td>`
+            strHTML += `<td class="${className} ${cell.isRevealed? 'open-cell': ''}" 
+                onclick="onCellClicked(this, ${i}, ${j})" 
+                oncontextmenu="onCellMarked(this, ${i}, ${j}); 
+                return false"><span ${revealOrHide} ${spanColor}>${cellContent}</span></td>`
         }
         strHTML += '</tr>'
     }
@@ -82,4 +80,13 @@ function updateTimer() {
 function changeLevel(levelIdx) {
     gLevel = gLevels[levelIdx]
     resetGame()
+}
+
+function toggleDarkMode() {
+    const elBody = document.body
+    elBody.classList.toggle('dark-mode')
+}
+
+function toggleOpenCellClr(elCell) {    
+    elCell.classList.toggle('open-cell')
 }

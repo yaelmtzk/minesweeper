@@ -7,13 +7,16 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 	<title>Minesweeper</title>
 	<link rel="stylesheet" href="assets/styles/main.css" />
+	<script src="https://kit.fontawesome.com/3840c4ba5c.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="onInit()">
-	<div>
-		<button class="dark-light-mode-btn" onclick="toggleScreenColorMode()">
-			<span>Dark</span>
-			Mode
+	<div class="top-section">
+		<button 
+			title="Dark/light mode" 
+			class="dark-light-mode-btn" 
+			onclick="toggleDarkMode()">
+			<i class="fa-solid fa-circle-half-stroke"></i>
 		</button>
 	</div>
 
@@ -25,45 +28,62 @@
 
 	<div class="game-container">
 		<div class="panel">
-			<div class="display mines-num">💣
+			<div class="mines-num">
+				<i class="fa-solid fa-bomb"></i>
 				<span></span>
-				<img class="icon flag" src="./assets/img/flag.png" alt="flag png">
+				<i class="fa-regular fa-flag" style="color: rgb(237, 73, 86);"></i>
 			</div>
 
-			<button class="reset-btn" onclick="resetGame()">
-				<img class="icon happy" src="./assets/img/happy.png" alt="happy png">
+			<button 
+				class="reset-btn" 
+				onclick="resetGame()"
+				title="Restart">
+				<i class="fa-regular fa-face-smile-beam"></i>
 			</button>
 
-			<div class="display timer">🕓<span>0000</span></div>
+			<div class="timer">
+				<i class="fa-regular fa-clock"></i>
+				<span>0000</span>
+			</div>
 		</div>
 
 		<div class="board-container"></div>
 	</div>
 
-
 	<div class="bottom-btn-panel">
 
 		<div class="levels"></div>
 
-		<button class="safe-click" onclick="showSafeClick()">
-			<b>Safe Click</b>
-			<br>
-			<span>3</span>
-			clicks available
-		</button>
+		<div class="btns-bottom-section">
+			<button 
+				class="safe-click" 
+				onclick="showSafeClick()" 
+				title="Safe click">
+				<i class="fa-regular fa-hand-pointer"></i>
+				<span>3</span>
+			</button>
 
-		<button class="mine-exterminator" onclick="mineExterminatorOn(this)">
-			Mines Exterminator: Unused
-		</button>
+			<button 
+				class="mine-exterminator" 
+				onclick="mineExterminatorOn(this)"
+				title="Mine exterminator">
+				<i class="fa-solid fa-x"></i>
+			</button>
 
-		<button class="mega-hint" onclick="megaHint(this)">
-			1 Mega Hint Available: Unused
-		</button>
-
+			<button 
+				class="mega-hint" 
+				onclick="megaHint(this)" 
+				title="Mega hint">
+				<i class="fa-solid fa-wand-sparkles"></i>
+			</button>			
+		</div>
 	</div>
 
-
-	<div class="best-score">Best Level Score: 🕓<span>99999</span></div>
+	<div class="best-score">
+		Best Level Score:
+		<i class="fa-solid fa-star"></i>
+		<span>99999</span>
+	</div>
 
 	<footer>
 		<p>&copy; 2025 Yael Matzek. All rights reserved.</p>
@@ -73,6 +93,7 @@
 	<script src="js/game.js"></script>
 	<script src="js/mines.js"></script>
 	<script src="js/hints.js"></script>
+
 
 </body>
 

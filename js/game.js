@@ -1,9 +1,5 @@
 'use strict'
 
-const HAPPY = 'happy'
-const LOST = 'lost'
-const WIN = 'win'
-
 var gBoard
 var gBoardCell = {}
 
@@ -49,13 +45,12 @@ var gGame = {
         cellsPos: []
     }
 }
+
 var gCurrentLives = gLevel.lives
 var gMarkedMines = 0
 var gBestScore = 99999
-
 var gStartTime
 var gTimerInterval
-
 var gSafeClick = 3
 
 for (let i = 0; i < gLevels.length; i++) {
@@ -63,9 +58,7 @@ for (let i = 0; i < gLevels.length; i++) {
     localStorage.setItem(`${levelName}BestScore`, `${gBestScore}`)
 }
 
-
 function onInit() {
-
     gBoard = buildBoard()
 
     const elLivesSpan = document.querySelector('.lives span')
@@ -103,22 +96,20 @@ function buildBoard() {
 }
 
 function onCellClicked(elCell, i, j) {
-
     var pos = { i: i, j: j }
     var currCell = gBoard[i][j]
 
     var className = getClassName(pos)
     const elCellSpan = document.querySelector(`${className} span`)
 
-    if (currCell.isMarked === true) return
+    if (currCell.isMarked) return
 
-    if (currCell.isRevealed === true) return
+    if (currCell.isRevealed) return
 
     if (gCurrentLives === 0) return
 
-    if (gGame.isOn === false) {
+    if (!gGame.isOn) {
         currCell.isRevealed = true
-
         gGame.isOn = true
         console.log('game is on')
 
@@ -126,14 +117,13 @@ function onCellClicked(elCell, i, j) {
         startTimer()
     }
 
-    if (gGame.megaHint.isOn === true) {
+    if (gGame.megaHint.isOn) {
 
         if (gGame.megaHint.cellsPos.length === 0) {
             gGame.megaHint.cellsPos.push({ i: i, j: j })
             elCell.style.backgroundColor = 'rgb(245, 186, 187)'
         } else if (gGame.megaHint.cellsPos.length === 1) {
             gGame.megaHint.cellsPos.push({ i: i, j: j })
-
             showMegaHint()
             setTimeout(() => hideMegaHint(), 2000)
             gGame.megaHint.isOn = false
@@ -141,28 +131,23 @@ function onCellClicked(elCell, i, j) {
         return
     }
 
-    if (currCell.isMine === true) {
-
-        elCell.style.backgroundColor = 'rgb(255, 130, 130)'
-
+    if (currCell.isMine) {
         gCurrentLives--
         const elLivesSpan = document.querySelector('.lives span')
         elLivesSpan.innerText = gCurrentLives
 
         if (gCurrentLives === 0) {
             const elPanelButton = document.querySelector('.panel button')
-            elPanelButton.innerHTML = `<img class="lost icon" src="./assets/img/lost.png" alt="lost-icon">`
+            elPanelButton.innerHTML = `<i class="fa-solid fa-heart-crack"></i>`
             gGame.isOn = false
             stopTimer()
         }
-    }
+    }    
 
     currCell.isRevealed = true
     gGame.revealedCount++
-
-    elCell.style.borderColor = 'rgb(86, 143, 135)'
+    toggleOpenCellClr(elCell)
     elCellSpan.classList.remove('hide')
-
     expandReveal(gBoard, i, j)
 
     if (gGame.isHint === true) {
@@ -179,14 +164,14 @@ function onCellMarked(elCell, i, j) {
     var className = getClassName(pos)
     const elCellSpan = document.querySelector(`${className} span`)
 
-    if (gGame.isOn === false) return
+    if (!gGame.isOn) return
 
-    if (currCell.isMarked === true) {
+    if (currCell.isMarked) {
         gGame.markedCount--
         currCell.isMarked = false
 
-        if (currCell.isMine === true) {
-            elCellSpan.innerHTML = `<img class="mine icon" src="./assets/img/mine.png" alt="mine png">`
+        if (currCell.isMine) {
+            elCellSpan.innerHTML = `<i class="fa-solid fa-burst" style="color: rgb(237, 73, 86);></i>`
             gMarkedMines--
         }
         else if (currCell.minesAroundCount > 0) elCellSpan.innerHTML = currCell.minesAroundCount
@@ -197,27 +182,26 @@ function onCellMarked(elCell, i, j) {
         const elMinesNumSpan = document.querySelector('.mines-num span')
         elMinesNumSpan.innerHTML = `${currBoardMinesSum}-${gGame.markedCount}`
     } else {
-
         if (gGame.markedCount === currBoardMinesSum) return
 
         gGame.markedCount++
         currCell.isMarked = true
 
-        if (currCell.isRevealed === true) gGame.revealedCount--
+        if (currCell.isRevealed) {
+            toggleOpenCellClr(elCell)
+            gGame.revealedCount--
+        }
+        
         currCell.isRevealed = false
 
-        elCellSpan.innerHTML = `<img class="icon flag" src="assets/img/flag.png" alt="flag png">`
+        elCellSpan.innerHTML = `<i class="fa-regular fa-flag" style="color: rgb(237, 73, 86);"></i>`
         elCellSpan.classList.remove('hide')
 
-        if (currCell.isMine === true) gMarkedMines++
+        if (currCell.isMine) gMarkedMines++
 
         const elMinesNumSpan = document.querySelector('.mines-num span')
         elMinesNumSpan.innerHTML = `${currBoardMinesSum}-${gGame.markedCount}`
     }
-
-    elCell.style.borderColor = 'rgb(162, 213, 198)'
-    elCell.style.backgroundColor = 'rgb(86, 143, 135)'
-
     checkGameOver()
 }
 
@@ -261,16 +245,10 @@ function resetGame() {
     elSafeClickBtnSpan.innerHTML = gSafeClick
 
     const elTimer = document.querySelector('.timer span')
-    elTimer.innerHTML = '000'
+    elTimer.innerHTML = '0000'
 
     const elPanelButton = document.querySelector('.panel button')
-    elPanelButton.innerHTML = `<img class="happy icon" src="./assets/img/happy.png" alt="happy png">`
-
-    const elExterminatorBtn = document.querySelector('.mine-exterminator')
-    elExterminatorBtn.innerHTML = 'Mines Exterminator Unused'
-
-    const elMegaHintBtn = document.querySelector('.mega-hint')
-    elMegaHintBtn.innerHTML = '1 Mega Hint Available: Unused'
+    elPanelButton.innerHTML = `<i class="fa-regular fa-face-grin-beam"></i>`
 
     onInit()
 }
@@ -280,12 +258,10 @@ function checkGameOver() {
         && gGame.revealedCount === gLevel.size * gLevel.size - currBoardMinesSum) {
 
         const elPanelButton = document.querySelector('.panel button')
-        elPanelButton.innerHTML = `<img class="win icon" src="./img/${WIN}.png" alt="${WIN} png">`
+        elPanelButton.innerHTML = `<i class="fa-solid fa-trophy"></i>`
 
         gGame.isOn = false
-
         setsBestScore()
-
         stopTimer()
 
         console.log('victory')
@@ -306,14 +282,14 @@ function setsBestScore() {
 }
 
 function showSafeClick() {
-    if (gGame.isOn === false) return
+    if (!gGame.isOn) return
 
     if (gSafeClick > 0 && gSafeClick <= 3) {
         const safeCells = []
         for (var i = 0; i < gBoard.length; i++) {
             for (var j = 0; j < gBoard[i].length; j++) {
 
-                if (gBoard[i][j].isMine === false && gBoard[i][j].isRevealed === false) {
+                if (!gBoard[i][j].isMine && !gBoard[i][j].isRevealed) {
                     safeCells.push({ i, j })
                 }
             }
@@ -330,13 +306,12 @@ function showSafeClick() {
         const elSafeClickBtnSpan = document.querySelector('.safe-click span')
         elSafeClickBtnSpan.innerHTML = gSafeClick
 
-        setTimeout(() => elSafeCell.style.backgroundColor = 'rgb(86, 143, 135)', 1500)
+        setTimeout(() => elSafeCell.style.backgroundColor = '#a8a8a8', 1500)
     }
 }
 
 function expandReveal(mat, rowIdx, colIdx) {
-
-    if (mat[rowIdx][colIdx].isMine === true) return
+    if (mat[rowIdx][colIdx].isMine) return
 
     var neighborMinesSum = countMinesAroundCell(rowIdx, colIdx, mat)
 
@@ -345,18 +320,16 @@ function expandReveal(mat, rowIdx, colIdx) {
     var neighbors = []
 
     for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
-
         if (i < 0 || i >= mat.length) continue
 
         for (var j = colIdx - 1; j <= colIdx + 1; j++) {
-
             if (i === rowIdx && j === colIdx) continue
             if (j < 0 || j >= mat[i].length) continue
 
             neighbors.push({ i: i, j: j })
 
             //Model
-            if (mat[i][j].isRevealed === false) {
+            if (!mat[i][j].isRevealed) {
                 mat[i][j].isRevealed = true
                 gGame.revealedCount++
             }
@@ -365,11 +338,10 @@ function expandReveal(mat, rowIdx, colIdx) {
             }
 
             //DOM
+            const neighborCell = document.querySelector(`${getClassName({ i: i, j: j })}`)
             const neighborCellSpan = document.querySelector(`${getClassName({ i: i, j: j })} span`)
             neighborCellSpan.classList.remove('hide')
-
-            const elNeighborCell = document.querySelector(`${getClassName({ i: i, j: j })}`)
-            elNeighborCell.style.borderColor = 'rgb(86, 143, 135)'
+            toggleOpenCellClr(neighborCell)
 
             for (var a = 0; a < neighbors.length; a++) {
                 expandReveal(mat, neighbors[a].i, neighbors[a].j)
@@ -378,15 +350,4 @@ function expandReveal(mat, rowIdx, colIdx) {
     }
 }
 
-function toggleScreenColorMode() {
-    const elBody = document.body
-    elBody.classList.toggle('dark-mode')
-    const isDark = elBody.classList.contains('dark-mode')
-    const darkLightBtnSpan = document.querySelector('.dark-light-mode-btn span')
 
-    if (isDark) {
-        darkLightBtnSpan.innerHTML = 'Light'
-    } else {
-        darkLightBtnSpan.innerHTML = 'Dark'
-    }
-}

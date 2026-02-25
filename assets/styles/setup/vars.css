@@ -1,14 +1,16 @@
  :root {
     /* General */
-	--main-bg: rgb(245, 186, 187); 
-	--main-text: rgb(6, 66, 50);
+	--main-bg: #ffffff; 
+	--main-text: #262626;
 	--dark-bg: #454545; 
-	--dark-bg-text: beige;
+	--dark-bg-text: #ffffff;
 	/* Game */
-	--game-bg: rgb(162, 213, 198); 
-	--cell-bg: rgb(86, 143, 135); 
+	--game-bg: #dde2e8;
+	--board-bg: rgba(221, 226, 232, 0.4);
+	--cell-bg: #a8a8a8;
+	--open-cell-bg: #f3f5f7; 
 	--cell-text: black;
 	--panel-text: rgb(255, 245, 242);
-	--hint-bg: rgb(255, 245, 242);
-	--shadow: gray;
+	/* --hint-bg: rgb(255, 245, 242); */
+	--shadow: rgba(0, 0, 0, 0.25);
 }

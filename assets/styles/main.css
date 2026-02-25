@@ -1,71 +1,125 @@
 /* Setup */
 @import "setup/vars.css";
 
-body {
-	text-align: center;
-	font-family: cursive;
-	color: var(--main-text);
-	background-color: var(--main-bg);
+*{
+	box-sizing: border-box;
 }
 
-.dark-mode {
-	background-color: var(--dark-bg);
-	color: var(--dark-bg-text);
-	opacity: 0.5;
+html, body {
+    height: 100%;
+    min-height: 100vh;
+	width: 100%;
+    min-width: 100vh;
+	overflow-y:scroll;
+}
+
+html{
+	>*{
+		margin: 0;
+	}
+}
+
+body {
+	display: grid;
+	font-family: monospace;
+	font-size: 14px;
+	color: var(--main-text);
+	background-color: var(--main-bg);
+	background-image: url("../img/bg.png");
+	background-size: cover;
+	background-position:unset;
+	background-repeat:no-repeat;
+
+	>* {
+		margin: 10px 0 10px 0;
+	}
+}
+
+.top-section {
+	display: flex;
+	justify-content: right;
+	width: 100%;
+	margin: 10px 0 0 0;
+}
+
+.dark-light-mode-btn {
+	font-size: 12px;
+	border-radius: 50%;
+	margin-right: 10px;
 }
 
 .logo {
 	height: 100px;
+	margin: auto;
 }
 
-.icon {
-	height: 18px;
-	width: 18px;
+.hints {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 5px;
 }
 
-.timer img {
-	height: 18px;
-	width: 18px;
-}
-
-.flag {
-	height: 12px;
-	width: 12px;
+.hint-btn {
+	border-radius: 50%;
 }
 
 .game-container {
-	margin: auto;
-	background-color: var(--game-bg);
-	width: fit-content;
-	height: fit-content;
-	border: 5px solid var(--main-bg);
+	place-self: center;
+	padding: 10px;
+	background-color: var(--board-bg);
 }
 
 table {
 	margin: auto;
 }
 
-.cell {
-	width: 30px;
-	height: 30px;
-	font-size: large;
-	color: var(--color-cell-text);
-	background-color: var(--cell-bg);
-	border: 2px solid var(--game-bg);
-	border-radius: 5%;
-	box-shadow: 2px 2px 2px 2px var(--shadow);
-	cursor: pointer;
+tbody {
+	display: flex;
+	flex-direction: column;
+	place-content: center;
+	gap: 5px;
 }
 
-.hide {
-	display: none;
+tr {
+	display: flex;
+	gap: 5px;
+}
+
+.cell {
+	display: flex;
+	place-content: center;
+	width: 40px;
+	height: 40px;
+	font-size: 18px;
+
+	color: var(--cell-text);
+	background-color: var(--cell-bg);
+
+	border: 2px solid var(--open-cell-bg);
+	border-radius: 50%;
+	box-shadow: 2px 2px 2px 2px var(--shadow);
+	cursor: pointer;
+
+	span {
+		place-self: center;
+	}
+
+	&:hover {
+		scale: 1.1;
+	}
 }
 
 .panel {
-	width: fit-content;
-	height: fit-content;
-	padding: 2px;
-	display: inline-flex;
+	margin: 5px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 5px;
+
+	>* {
+		padding: 5px;
+	}
 }
 
 .board-container {
@@ -80,68 +134,95 @@ table {
 
 .mines-num,
 .timer {
-	margin: 2px;
-	background-color: var(--cell-bg);
+	min-width: fit-content;
 	width: 80px;
-	height: 35px;
-	color: var(--panel-text);
-	font-size: small;
+	font-size: 12px;
 	text-align: center;
-	line-height: 35px;
+	color: var(--cell-text);
+}
+
+.timer {
+	text-align: left;
 }
 
 button {
-	border-color: var(--game-bg);
-	background-color: var(--cell-bg);
-	color: var(--panel-text);
+	border: none;
 	width: 40px;
-	height: 37px;
+	height: 40px;
 	cursor: pointer;
 	font-size: larger;
 	border-radius: 10%;
-	font-family: cursive;
 }
 
-.dark-light-mode-btn {
-	font-size: smaller;
-	width: 90px;
-	height: 22px;
+button:hover {
+	scale: 1.1;
 }
 
-.hint-btn {
-	margin: 2px;
-	margin-bottom: 8px;
-	background-color: var(--panel-text);
+.reset-btn {
+	border-radius: 50%;
+}
+
+.levels {
+	display: flex;
+	place-content: center;
 }
 
 .levels button {
 	margin: 5px;
-	background-color: var(--cell-bg);
-	color: var(--panel-text);
+	background-color: var(--game-bg);
 	font-size: small;
-	width: 90px;
-	height: 40px;
+	width: fit-content;
 }
 
 .bottom-btn-panel {
-	margin-bottom: 10px;
+	margin: 10px;
+}
+
+.btns-bottom-section {
+	text-align: center;
+	margin: 10px;
 }
 
 .safe-click,
 .mine-exterminator,
 .mega-hint {
-	width: 90px;
-	height: 60px;
+	border-radius: 50%;
 	padding-right: 2px;
 	padding-left: 2px;
 	font-size: small;
 	color: var(--cell-text);
 	background-color: var(--game-bg);
+}
 
+.best-score {
+	margin: auto;
 }
 
 footer {
-	margin-top: 500px;
+	margin: 20px 0 0 0;
+	text-align: center;
 	color: var(--cell-bg);
 }
 
+:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.hide {
+	display: none;
+}
+
+.dark-mode {
+	background-color: black;
+	color: var(--dark-bg-text);
+	background-image: url("../img/bg-dark.png");
+}
+
+.open-cell {
+	background-color: #f3f5f7;
+}
+
+p{
+	margin: 0;
+}

@@ -44,9 +44,8 @@ function setMinesNegsCount(board) {
 
 function mineExterminatorOn(elBtn) {
     if (gGame.exterminator.amount < 1) return
-    if (gGame.isOn === false) return
+    if (!gGame.isOn) return
 
-    elBtn.innerHTML = 'Mines Exterminator <b>Used</b>'
     gGame.exterminator.isOn = true
     exterminateMines()
 }

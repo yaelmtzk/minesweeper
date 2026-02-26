@@ -2,7 +2,6 @@
 
 var gBoard
 var gBoardCell = {}
-
 var gLevels = [
     {
         level: 'beginner',
@@ -68,14 +67,12 @@ function onInit() {
     elMinesNumSpan.innerHTML = `${currBoardMinesSum} - 0`
 
     const elBestScoreSpan = document.querySelector('.best-score span')
-
     elBestScoreSpan.innerText = localStorage.getItem(`${gLevel.level}BestScore`)
 
     setLevelBtns()
-
     setHints()
-
     renderBoard(gBoard, '.board-container')
+    lockBtns(true)
 }
 
 function buildBoard() {
@@ -96,7 +93,7 @@ function buildBoard() {
 }
 
 function onCellClicked(elCell, i, j) {
-    var pos = { i: i, j: j }
+    var pos = { i, j }
     var currCell = gBoard[i][j]
 
     var className = getClassName(pos)
@@ -109,21 +106,21 @@ function onCellClicked(elCell, i, j) {
     if (gCurrentLives === 0) return
 
     if (!gGame.isOn) {
+        lockBtns(false)
+        unlockHints()
         currCell.isRevealed = true
         gGame.isOn = true
         console.log('game is on')
-
         setMines(pos, gBoard)
         startTimer()
     }
 
     if (gGame.megaHint.isOn) {
-
+        elCell.style.backgroundColor = 'rgb(245, 186, 187)'
         if (gGame.megaHint.cellsPos.length === 0) {
-            gGame.megaHint.cellsPos.push({ i: i, j: j })
-            elCell.style.backgroundColor = 'rgb(245, 186, 187)'
+            gGame.megaHint.cellsPos.push({ i, j })
         } else if (gGame.megaHint.cellsPos.length === 1) {
-            gGame.megaHint.cellsPos.push({ i: i, j: j })
+            gGame.megaHint.cellsPos.push({ i, j })
             showMegaHint()
             setTimeout(() => hideMegaHint(), 2000)
             gGame.megaHint.isOn = false
@@ -142,7 +139,7 @@ function onCellClicked(elCell, i, j) {
             gGame.isOn = false
             stopTimer()
         }
-    }    
+    }
 
     currCell.isRevealed = true
     gGame.revealedCount++
@@ -159,7 +156,7 @@ function onCellClicked(elCell, i, j) {
 }
 
 function onCellMarked(elCell, i, j) {
-    var pos = { i: i, j: j }
+    var pos = { i, j }
     var currCell = gBoard[i][j]
     var className = getClassName(pos)
     const elCellSpan = document.querySelector(`${className} span`)
@@ -191,7 +188,7 @@ function onCellMarked(elCell, i, j) {
             toggleOpenCellClr(elCell)
             gGame.revealedCount--
         }
-        
+
         currCell.isRevealed = false
 
         elCellSpan.innerHTML = `<i class="fa-regular fa-flag" style="color: rgb(237, 73, 86);"></i>`
@@ -284,30 +281,37 @@ function setsBestScore() {
 function showSafeClick() {
     if (!gGame.isOn) return
 
-    if (gSafeClick > 0 && gSafeClick <= 3) {
-        const safeCells = []
-        for (var i = 0; i < gBoard.length; i++) {
-            for (var j = 0; j < gBoard[i].length; j++) {
+    const elSafeClickBtn = document.querySelector('.safe-click')
+    const elSafeClickBtnSpan = elSafeClickBtn.querySelector('span')
 
-                if (!gBoard[i][j].isMine && !gBoard[i][j].isRevealed) {
-                    safeCells.push({ i, j })
-                }
+    if (gSafeClick <= 0) return
+
+    const safeCells = []
+
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard[i].length; j++) {
+            if (!gBoard[i][j].isMine && !gBoard[i][j].isRevealed) {
+                safeCells.push({ i, j })
             }
         }
-
-        if (safeCells.length < 1) return
-
-        const safeCellIdx = safeCells[getRandomIntInclusive(0, safeCells.length - 1)]
-        const elSafeCell = document.querySelector(`${getClassName(safeCellIdx)}`)
-        elSafeCell.style.backgroundColor = 'rgb(245, 186, 187)'
-
-        gSafeClick--
-
-        const elSafeClickBtnSpan = document.querySelector('.safe-click span')
-        elSafeClickBtnSpan.innerHTML = gSafeClick
-
-        setTimeout(() => elSafeCell.style.backgroundColor = '#a8a8a8', 1500)
     }
+
+    if (safeCells.length === 0) return
+
+    gSafeClick--
+
+    const safeCellPos = safeCells[getRandomIntInclusive(0, safeCells.length - 1)]
+    const elSafeCell = document.querySelector(getClassName(safeCellPos))
+    elSafeCell.style.backgroundColor = 'rgb(245, 186, 187)'
+    elSafeClickBtnSpan.innerHTML = gSafeClick
+
+    if (gSafeClick === 0) {
+        elSafeClickBtn.disabled = true
+    }
+
+    setTimeout(() => {
+        elSafeCell.style.backgroundColor = ''
+    }, 1000)
 }
 
 function expandReveal(mat, rowIdx, colIdx) {
@@ -350,4 +354,12 @@ function expandReveal(mat, rowIdx, colIdx) {
     }
 }
 
+function lockBtns(value) {
+    const elMegaHinBtn = document.querySelector('.mega-hint')
+    const elSafeClickBtn = document.querySelector('.safe-click')
+    const elExterminatorBtn = document.querySelector('.mine-exterminator')
+    elMegaHinBtn.disabled = value
+    elSafeClickBtn.disabled = value
+    elExterminatorBtn.disabled = value
+}
 
